@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 21556483}
   - component: {fileID: 21556482}
   - component: {fileID: 21556481}
+  - component: {fileID: 21556484}
   m_Layer: 5
   m_Name: monstreGauche
   m_TagString: Untagged
@@ -214,6 +215,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21556479}
   m_CullTransparentMesh: 0
+--- !u!114 &21556484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21556479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400078413376024f9b94a901bad7f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &511419524
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +627,7 @@ GameObject:
   - component: {fileID: 623556492}
   - component: {fileID: 623556491}
   - component: {fileID: 623556490}
+  - component: {fileID: 623556493}
   m_Layer: 5
   m_Name: monstreDroite
   m_TagString: Untagged
@@ -695,6 +709,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623556488}
   m_CullTransparentMesh: 0
+--- !u!114 &623556493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623556488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400078413376024f9b94a901bad7f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &715400317
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +860,7 @@ GameObject:
   - component: {fileID: 999965486}
   - component: {fileID: 999965485}
   - component: {fileID: 999965487}
+  - component: {fileID: 999965488}
   m_Layer: 5
   m_Name: enfant
   m_TagString: Untagged
@@ -886,7 +913,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &999965486
 CanvasRenderer:
@@ -915,6 +942,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &999965488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999965483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400078413376024f9b94a901bad7f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2104047490
 GameObject:
   m_ObjectHideFlags: 0
