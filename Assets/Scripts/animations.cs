@@ -28,7 +28,7 @@ public class Animations : MonoBehaviour
  * - fonction détection deuxième coup : booleen? dxmeCoup = true
  * - si dxmeCoup = true : lancement timer + (timerGo = true) + (sortie = true) ->c'est le lancement de l'animation
  * - fin timer : (timerEnd = true) + (sortie = false)
- * - si ((timerGo == true) && (timerEnd == false) && (GetButtonDown("bouton")) alors REUSSI -> si c'est conditions sont remplie on ne s'occuper pas du sinon
+ * - si ((timerGo == true) && (timerEnd == false) && (GetButtonDown("bouton"))) alors REUSSI -> si c'est conditions sont remplie on ne s'occuper pas du sinon
  * - sinon si ((timerGo == true) && (timerEnd == true)) alors RATE -> si la condition précédente n'est pas remplie on lit le sinon
  * - si REUSSI alors (coup = true)
  * - si RATE alors (peur = true)
