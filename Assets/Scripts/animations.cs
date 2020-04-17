@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Animations : MonoBehaviour
 {
-    private bool monstreGauche; // d'abord false; booleen devient true quand le monstre va sortir
-    private bool monstreDroite; // d'abord false; devient true quand le monstre va sortir
+    private bool monstreGauche; // d'abord false; devient true quand le monstre sort
+    private bool monstreDroite; // d'abord false; devient true quand le monstre sort
+
+    public float timer; // temps; déclenché selon rythme
+    public bool timerGo; // devient vrai au début du timer; redevient faux à la fin du timer
+    public bool timerEnd; // devient vrai quand le timer est fini; redevient faux après réinitialisation
+
+    public bool reussi; // devient vrai si l'action est réussie; redevient faux après réinitialisation
+    public bool rate;
 
     private bool enfantCouverture; // OPTIONNEL ; devient aléatoirement true pour déclencher petite animation, puis repasse à false
 
     public Animator animator;
 
-    void Start()
-    {
-        Debug.Log("game start");
+    public int score;
 
-        monstreGauche = false;
-        monstreDroite = false;
-
-        enfantCouverture = false;
-    }
 
     /* To do:
  * - musique à rythme binaire : 2 coups
@@ -35,6 +35,25 @@ public class Animations : MonoBehaviour
  * - quand tout est fini, tous les booleens = false
  * - selon REUSSI ou RATE, ajout de points au score
  */
+
+    void Start()
+    {
+        Debug.Log("game start");
+
+        monstreGauche = false;
+        monstreDroite = false;
+
+        timer = 0;
+        timerGo = false;
+        timerEnd = false;
+
+        reussi = false;
+        rate = false;
+
+        enfantCouverture = false;
+
+        score = 0;
+    }
 
     void Update()
     {
@@ -53,47 +72,77 @@ public class Animations : MonoBehaviour
         }
 
 
-        void MonstresOnOff()
-        // les deux conditions suivantes permettent de basculer a true/false les booleens des monstres ; code temporaire en attendant qe pouvoir le faire automatiquement
-        {
-            if (Input.GetKeyDown(KeyCode.D) && (monstreDroite == false))
-            {
-                monstreDroite = true;
-                Debug.Log("monstreDroite = true");
-            }
-            else
-            {
-                monstreDroite = false;
-                Debug.Log("monstreDroite = false");
-            }
-            if (Input.GetKeyDown(KeyCode.G) && (monstreGauche == false))
-            {
-                monstreGauche = true;
-                Debug.Log("monstreGauche = true");
-            }
-            else
-            {
-                monstreGauche = false;
-                Debug.Log("monstreGauche = false");
-            }
-        }
 
-        void MonstreGauche()
-        // !! ne pas confondre avec la variable monstreGauche
-        {
-            if (Input.GetButtonDown("Gauche"))
-            {
-                animator.SetBool("coupGaucheReussi", true);
-            }
-        }
+        ReinitVar();
 
-        void MonstreDroite()
-        // !! ne pas confondre avec la variable monstreDroite
+    }
+
+    void MonstresOnOff()
+    // les deux conditions suivantes permettent de basculer a true/false les booleens des monstres ; code temporaire en attendant qe pouvoir le faire automatiquement
+    {
+        if (Input.GetKeyDown(KeyCode.D) && (monstreDroite == false))
         {
-            if (Input.GetButtonDown("Droite"))
-            {
-                animator.SetBool("coupDroitReussi", true);
-            }
+            monstreDroite = true;
+            Debug.Log("monstreDroite = true");
+        }
+        else
+        {
+            monstreDroite = false;
+            Debug.Log("monstreDroite = false");
+        }
+        if (Input.GetKeyDown(KeyCode.G) && (monstreGauche == false))
+        {
+            monstreGauche = true;
+            Debug.Log("monstreGauche = true");
+        }
+        else
+        {
+            monstreGauche = false;
+            Debug.Log("monstreGauche = false");
         }
     }
+
+    void ReinitVar()
+    {
+        //réinitialisation des variables (sauf le score)
+
+        monstreGauche = false;
+        monstreDroite = false;
+
+        timer = 0;
+        timerGo = false;
+        timerEnd = false;
+
+        reussi = false;
+        rate = false;
+
+        enfantCouverture = false;
+    }
+
+    void CalcScore()
+    {
+        // calcul du score selon action réussie ou ratée
+
+
+    }
+
+
+    void MonstreGauche()
+    // !! ne pas confondre avec la variable monstreGauche
+    {
+        if (Input.GetButtonDown("Gauche"))
+        {
+            animator.SetBool("coupGaucheReussi", true);
+        }
+    }
+
+    void MonstreDroite()
+    // !! ne pas confondre avec la variable monstreDroite
+    {
+        if (Input.GetButtonDown("Droite"))
+        {
+            animator.SetBool("coupDroitReussi", true);
+        }
+    }
+
 }
