@@ -46,7 +46,8 @@ public class Animations : MonoBehaviour
  *   // faire des coroutines dans Update() --> si temps = <laps sans percussion1> || <laps sans percussions2> || <laps sans percussions3>... (|| = ou) alors attentre <laps de temps>
  *      --> plutot que boucle si, voir pour faire un "cas parmis" à la place puissque chaque laps sans percussions peut être de durée différente!
  *   // si le temps ne correspond pas à celui qui déclenche la coroutine, elle n'est pas lancée et le jeu continue
- *   // avant la méthode ReinitVar(), faire en sorte que la méthode CalcScore() mette correctement le score à jour
+ *   // faire en sorte que la méthode CalcScore() mette correctement le score à jour
+ *   // !! ATTENTION !! ne pas utiliser ReinitVar() directement dans Upade() sinon les var sont réinitialisées à chaque frame!!
  *   }
  */
 
@@ -74,8 +75,6 @@ public class Animations : MonoBehaviour
             MonstreGauche();
         }
 
-
-        ReinitVar();
     }
 
     void ReinitVar()
@@ -97,25 +96,31 @@ public class Animations : MonoBehaviour
     void MonstresOnOff()
     // les deux conditions suivantes permettent de basculer a true/false les booleens des monstres ; code temporaire en attendant qe pouvoir le faire automatiquement
     {
-        if (Input.GetKeyDown(KeyCode.D) && (monstreDroite == false))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            monstreDroite = true;
-            Debug.Log("monstreDroite = true");
+            if (monstreDroite == false)
+            {
+                monstreDroite = true;
+                Debug.Log("monstreDroite = true");
+            }
+            else
+            {
+                monstreDroite = false;
+                Debug.Log("monstreDroite = false");
+            }
         }
-        else
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            monstreDroite = false;
-            Debug.Log("monstreDroite = false");
-        }
-        if (Input.GetKeyDown(KeyCode.G) && (monstreGauche == false))
-        {
-            monstreGauche = true;
-            Debug.Log("monstreGauche = true");
-        }
-        else
-        {
-            monstreGauche = false;
-            Debug.Log("monstreGauche = false");
+            if (monstreGauche == false)
+            {
+                monstreGauche = true;
+                Debug.Log("monstreGauche = true");
+            }
+            else
+            {
+                monstreGauche = false;
+                Debug.Log("monstreGauche = false");
+            }
         }
     }
 
