@@ -9,7 +9,7 @@ public class ShapeShifting : MonoBehaviour
 
     public bool dxmeCoup;
     private int fMax; // fréquence rythme
-    public int compte;
+    public int compteur;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class ShapeShifting : MonoBehaviour
 
         Compteur();
 
-        if ((compte % 2 = 0) && (AudioP.fSamples[nSample] >= fMax))
+        if ((compteur % 2 == 0) && (AudioP.fSamples[nSample] >= fMax))
         {
             dxmeCoup = true;
         }
@@ -45,6 +45,6 @@ public class ShapeShifting : MonoBehaviour
             i++;
         }
 
-        compte = i;
+        compteur = i;
     }
 }

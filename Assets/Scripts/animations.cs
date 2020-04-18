@@ -34,30 +34,33 @@ public class Animations : MonoBehaviour
  * - si RATE alors (peur = true)
  * - quand tout est fini, tous les booleens = false
  * - selon REUSSI ou RATE, ajout de points au score
+ * 
+ * PLAN B POUR LA MUSIQUE
+ * - void Start() {
+ *   // lancer le timer de la musique? ou pas, à voir
+ *   // placer une coroutine qui yield 21 sec (= quand les percussions commencent)
+ *   }
+ * - void Update() {
+ *   // procédure/fonction qui ajoute 1 au compteur toutes les x seconde (x = temps entre chaque prcussion, à calculer/compter manuellement)
+ *   // calculer les laps dans la musique où il n'y a pas de percussions/rythme; les enregistrer dans des constantes
+ *   // faire des coroutines dans Update() --> si temps = <laps sans percussion1> || <laps sans percussions2> || <laps sans percussions3>... (|| = ou) alors attentre <laps de temps>
+ *      --> plutot que boucle si, voir pour faire un "cas parmis" à la place puissque chaque laps sans percussions peut être de durée différente!
+ *   // si le temps ne correspond pas à celui qui déclenche la coroutine, elle n'est pas lancée et le jeu continue
+ *   // avant la méthode ReinitVar(), faire en sorte que la méthode CalcScore() mette correctement le score à jour
+ *   }
  */
 
     void Start()
     {
         Debug.Log("game start");
 
-        monstreGauche = false;
-        monstreDroite = false;
-
-        timer = 0;
-        timerGo = false;
-        timerEnd = false;
-
-        reussi = false;
-        rate = false;
-
-        enfantCouverture = false;
+        ReinitVar();
 
         score = 0;
     }
 
     void Update()
     {
-
         MonstresOnOff();
  
         if (monstreDroite == true)
@@ -72,9 +75,23 @@ public class Animations : MonoBehaviour
         }
 
 
-
         ReinitVar();
+    }
 
+    void ReinitVar()
+    //réinitialisation des variables (sauf le score)
+    {
+        monstreGauche = false;
+        monstreDroite = false;
+
+        timer = 0;
+        timerGo = false;
+        timerEnd = false;
+
+        reussi = false;
+        rate = false;
+
+        enfantCouverture = false;
     }
 
     void MonstresOnOff()
@@ -102,30 +119,12 @@ public class Animations : MonoBehaviour
         }
     }
 
-    void ReinitVar()
-    {
-        //réinitialisation des variables (sauf le score)
-
-        monstreGauche = false;
-        monstreDroite = false;
-
-        timer = 0;
-        timerGo = false;
-        timerEnd = false;
-
-        reussi = false;
-        rate = false;
-
-        enfantCouverture = false;
-    }
-
     void CalcScore()
+    // calcul du score selon action réussie ou ratée
     {
-        // calcul du score selon action réussie ou ratée
 
 
     }
-
 
     void MonstreGauche()
     // !! ne pas confondre avec la variable monstreGauche
