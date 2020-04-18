@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Animations : MonoBehaviour
 {
+    bool enCours; // vrai si une action (autre que "enfantCouverture") est en cours; empêche d'exécuter deux actions en meme temps 
+
     private bool monstreGauche; // d'abord false; devient true quand le monstre sort
     private bool monstreDroite; // d'abord false; devient true quand le monstre sort
 
@@ -16,9 +18,22 @@ public class Animations : MonoBehaviour
 
     private bool enfantCouverture; // OPTIONNEL ; devient aléatoirement true pour déclencher petite animation, puis repasse à false
 
-    public Animator animator;
-
     public int score;
+
+    public Animator animator;
+    /* durée de chaque animation :
+     * - <toutes les animation "Attente"> : indéfinies
+     * - <toutes les animations "coup"> : 0:30 sec = 0.5 sec
+     * - <enfantPeur> : 0:50 sec = 5/6 sec (~0.83 sec)
+     * - <monstrePeur> : 0:40 sec = 2/3 sec (~0.67 sec)
+     * - <monstreSortie> : 0:20 sec = 1/3 sec (~0.33 sec)
+     * - <enfantCouverture> : 1:45 sec = 1.75 sec
+     */
+
+    public bool introMusique;
+    public float debutRythme = 20.95f; // temps (sec) correspondant a la premiere occurence d'un coup (1er coup, impaire); 1er coup paire : 21.60 sec
+    public float intervalleCoupPaire = 1.275f; // intervalle de temps en secondes entre le début de deux coup paires ("une période")
+    //public float doubleIntervalle = intervalleCoupPaire * 2;
 
 
     /* To do:
@@ -41,7 +56,7 @@ public class Animations : MonoBehaviour
  *   // placer une coroutine qui yield 21 sec (= quand les percussions commencent)
  *   }
  * - void Update() {
- *   // procédure/fonction qui ajoute 1 au compteur toutes les x seconde (x = temps entre chaque prcussion, à calculer/compter manuellement)
+ *   // procédure/fonction qui ajoute 1 au compteur toutes les x seconde (x = temps entre chaque prcussion, à calculer/compter manuellement) --> pas = 1.275 sec
  *   // calculer les laps dans la musique où il n'y a pas de percussions/rythme; les enregistrer dans des constantes
  *   // faire des coroutines dans Update() --> si temps = <laps sans percussion1> || <laps sans percussions2> || <laps sans percussions3>... (|| = ou) alors attentre <laps de temps>
  *      --> plutot que boucle si, voir pour faire un "cas parmis" à la place puissque chaque laps sans percussions peut être de durée différente!
@@ -53,6 +68,9 @@ public class Animations : MonoBehaviour
 
     void Start()
     {
+        introMusique = true; // devient faux à la fin de la séquence d'introduction de la musique
+        StartCoroutine(Intro());
+
         Debug.Log("game start");
 
         ReinitVar();
@@ -62,24 +80,39 @@ public class Animations : MonoBehaviour
 
     void Update()
     {
-        MonstresOnOff();
- 
-        if (monstreDroite == true)
+        if (introMusique == false)
         {
-            MonstreDroite();
-        }
-        
+            if (enCours == false)
+            {
+                MonstresOn();
+            }
 
-        if (monstreGauche == true)
-        {
-            MonstreGauche();
+            if (enCours == true)
+            {
+                
+
+            }
         }
 
     }
 
+
+
+
+    IEnumerator Intro()
+    {
+        yield return new WaitforSeconds(debutRythme);
+        Debug.Log("Fin de l'intro");
+
+        introMusique = false;
+    }
+
+
     void ReinitVar()
     //réinitialisation des variables (sauf le score)
     {
+        enCours = false;
+
         monstreGauche = false;
         monstreDroite = false;
 
@@ -93,8 +126,8 @@ public class Animations : MonoBehaviour
         enfantCouverture = false;
     }
 
-    void MonstresOnOff()
-    // les deux conditions suivantes permettent de basculer a true/false les booleens des monstres ; code temporaire en attendant qe pouvoir le faire automatiquement
+    void MonstresOn()
+    // Temporaire; active les monstres
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -102,11 +135,7 @@ public class Animations : MonoBehaviour
             {
                 monstreDroite = true;
                 Debug.Log("monstreDroite = true");
-            }
-            else
-            {
-                monstreDroite = false;
-                Debug.Log("monstreDroite = false");
+                enCours = true;
             }
         }
         if (Input.GetKeyDown(KeyCode.G))
@@ -115,11 +144,7 @@ public class Animations : MonoBehaviour
             {
                 monstreGauche = true;
                 Debug.Log("monstreGauche = true");
-            }
-            else
-            {
-                monstreGauche = false;
-                Debug.Log("monstreGauche = false");
+                enCours = true;
             }
         }
     }
@@ -148,5 +173,13 @@ public class Animations : MonoBehaviour
             animator.SetBool("coupDroitReussi", true);
         }
     }
+
+
+
+    void CompteurCoups()
+    {
+    
+    }
+
 
 }
